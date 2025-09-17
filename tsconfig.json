@@ -39,7 +39,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "moduleResolution": "NodeNext",
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
@@ -48,6 +48,6 @@
     "skipLibCheck": true
   },
 
-  "include": ["index.ts", "**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

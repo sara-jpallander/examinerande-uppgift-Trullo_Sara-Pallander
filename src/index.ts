@@ -2,6 +2,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv"
+import userRoutes from "./routes/userRoutes.js"
 
 
 /* ///////////// CONFIGS ///////////////// */
@@ -9,8 +10,6 @@ const app = express();
 app.use(express.json())
 
 dotenv.config();
-
-
 
 
 /* /////////// KOPPLA TILL DB //////////// */
@@ -30,3 +29,13 @@ connectDB().then(() => {
         console.log(`🔵 Server is running on http://localhost:${PORT}`)
     });
 }).catch(console.error)
+
+
+/* ////////////// REST API ////////////// */
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "API landing page ⭐" })
+});
+
+
+app.use("/users", userRoutes);
+/* app.use("/tasks", tasksRoutes) */
