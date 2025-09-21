@@ -1,10 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { type InferSchemaType, type ObjectId } from "mongoose";
+import { lowercase } from "zod";
 
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        lowercase: true,
+        trim: true
     },
 
     password: {
@@ -15,14 +18,12 @@ const UserSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true
         /* Minimum längd. */
-    },
+    }
 
-/*     tasks: {
-        type: [Task],
-        ref: "Task"
-    } */
 }, { collection: "users" });
 
 export default mongoose.model("User", UserSchema)
+export type UserType = InferSchemaType<typeof UserSchema> & {_id: ObjectId}
