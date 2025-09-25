@@ -5,11 +5,10 @@ import userValidation from "../validation/user.schema.js"
 import bcrypt from "bcrypt";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import createJWT from "../validation/createJWT.js";
-import User, { type UserType } from "../models/User.js"
+import User from "../models/User.js"
+import Task from "../models/Task.js"
 
 const router = express.Router()
-
-/* Gör en interface/type för UserInput för att använda för JWT sign. */
 
 
 /* ///////////// ROUTES ///////////////// */
@@ -62,7 +61,6 @@ async function createUser(req: Request, res: Response) {
 // GET USER - LOGIN
 async function userLogin(req: Request, res: Response) {
   try {
-    /* req.body.email = req.body.email.toLowerCase(); */
 
     // Hitta att user finns via email
     const user = await User.findOne({
@@ -126,7 +124,7 @@ async function getUserById(req: ProtectedRequest, res: Response) {
     }
     
   } catch (error) {
-      res.status(500).json({ message: `Internal server error. Failed to get user. ${error}` });
+      res.status(500).json({ message: `Internal server error. Failed to get user - authentication failed. ${error}` });
   }
 };
 
@@ -191,8 +189,13 @@ async function updateUserById(req: Request, res: Response) {
 // DELETE USER
 async function deleteUserById(req: Request, res: Response) {
   try {
-    // Just nu bara en enkel delete av user. 
-    /* TODO - lägg till så att användaren tas bort från tasks den är assignad to sen */
+    // Hitta alla tasks som användare är assigned till och ta bort kopplingen
+    await Task.updateMany(
+      { assignedTo: req.params.id },
+      { $set: { assignedTo: null } }
+    );
+    
+    // Ta sedan bort användare
     const user = await User.findByIdAndDelete(req.params.id);
 
     if (!user) {
@@ -202,8 +205,7 @@ async function deleteUserById(req: Request, res: Response) {
     res.status(200).json({ message: "Successfully deleted user: ", data: user })
   } catch (error) {
     res.status(500).json({ message: `Internal server error. Failed to delete user. ${error}` });
-
-  }
-}
+  };
+};
 
 export default router;

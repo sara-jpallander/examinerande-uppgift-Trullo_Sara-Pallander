@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv"
 import userRoutes from "./routes/userRoutes.js"
+import taskRoutes from "./routes/taskRoutes.js"
 
 
 /* ///////////// CONFIGS ///////////////// */
@@ -38,4 +39,4 @@ app.get("/", (req, res) => {
 
 
 app.use("/users", userRoutes);
-/* app.use("/tasks", tasksRoutes) */
+app.use("/tasks", taskRoutes);

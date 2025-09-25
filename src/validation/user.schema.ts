@@ -3,6 +3,7 @@ import { z } from "zod";
 const userValidation = z.object({
     name: z
         .string()
+        .trim()
         .min(1, "Name cannot be empty")
         .max(20, "Name cannot exceed 20 characters" ),
 
@@ -11,6 +12,7 @@ const userValidation = z.object({
     
     password: z
         .string()
+        .trim()
         .min(8, "Password must contain at least 8 characters")
 });
 
