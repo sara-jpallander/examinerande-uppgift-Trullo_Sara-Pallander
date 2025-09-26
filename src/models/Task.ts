@@ -8,7 +8,8 @@ const TaskSchema = new mongoose.Schema({
     },
 
     description: {
-        type: String
+        type: String,
+        trim: true
     }, 
 
     status: {
@@ -19,11 +20,13 @@ const TaskSchema = new mongoose.Schema({
 
     assignedTo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        default: null
     },
 
     finishedAt: {
-        type: Date
+        type: Date,
+        default: null
     }
 
 }, { collection: "tasks", timestamps: true });

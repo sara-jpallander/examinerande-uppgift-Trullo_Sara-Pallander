@@ -1,5 +1,4 @@
 import mongoose, { type InferSchemaType, type ObjectId } from "mongoose";
-import { lowercase } from "zod";
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -13,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        /* Lägga till minimum längd? */
+        /* Lägga till minimum längd i validering?*/
     },
 
     name: {

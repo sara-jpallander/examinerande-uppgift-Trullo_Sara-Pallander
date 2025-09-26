@@ -110,9 +110,6 @@ async function getUserById(req: ProtectedRequest, res: Response) {
     // Avkoda token - få fram requested user id genom decoded.id
     const decoded = jwt.verify(bearerToken, process.env.JWT_SECRET as string) as JwtPayload;
 
-    // console.log(typeof decoded.id)
-    // console.log(typeof req.params.id)
-
     // Ta fram user
     if (req.params.id && decoded.id as String === req.params.id as String) {
       const user = await User.findById(req.params.id);
