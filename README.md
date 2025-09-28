@@ -21,7 +21,7 @@ Jag valde MongoDB eftersom det är någon används i branschen, mer specifikt i 
 ### Redogör översiktligt hur applikationen fungerar
 Applikationen tillåter en användare att skapa ett konto, logga in, uppdatera sina uppgifter och ta bort sitt konto. Användareuppgifter krypteras innan de sparas i databasen och inloggningen valideras via JWT för ökad säkerhet. 
 
-Man kan dessutom skapa/ta bort en task, tilldela den till en användare och uppdatera dess status.
+Man kan dessutom skapa/ta bort en task, tilldela den till en användare och uppdatera dess status. När en användare tas bort så tas även kopplingen till tasks bort, om det finns några.
 
 ## Körguide
 Installera alla nödvändiga paket:
